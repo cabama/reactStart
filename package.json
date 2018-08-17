@@ -10,17 +10,22 @@
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts-ts": "2.16.0"
+    "react-scripts-ts": "2.16.0",
+    "redux": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",
+    "dev": "PORT=2525 REACT_BUILD_MODE='DEV' npm start",
+    "prod": "REACT_BUILD_MODE='PROD' npm start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "@types/react-redux": "^6.0.6",
     "@types/jest": "^22.2.3",
     "@types/node": "^10.1.2",
     "@types/react": "^16.3.14",

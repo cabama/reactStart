@@ -1,9 +1,16 @@
+import { LoginService } from '../../Services/LoginService'
+
 export interface IUserStore {
-    cosa: number
+    login: boolean
     email: string
+    name: string
+    role: 'admin' | 'user' | null
+    loginService?: LoginService
 }
 
 export const defaultUser: IUserStore = {
-    cosa: 0,
+    login: false,
+    name: '',
     email: '',
+    role: null,
 }

@@ -1,8 +1,21 @@
 import { Icon } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import * as React from 'react'
+import { connect } from 'react-redux'
+import { Fetch } from '../../Services/FetchService'
 
-export class MainPage extends React.Component {
+class MainPage extends React.Component {
+
+  public componentDidMount() {
+    const fetch = new Fetch()
+
+    fetch.fetch('http://localhost:2525/api/users/all')
+      .then((response) => {
+        (window as any).carlos = response
+        console.log(response.json())
+      })
+      .catch((error) => { console.log(error.message)})
+  }
 
   public handleAuth() {
     // googleAuth().then((value) => ((window as any).gauth = value))
@@ -21,3 +34,21 @@ export class MainPage extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state: any) => {
+  return {
+    state: {
+      ...state,
+    },
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    counter_add: (type: string) => dispatch({
+      type,
+    }),
+  }
+}
+
+export const MainPageContainer = connect(mapStateToProps, mapDispatchToProps)(MainPage)

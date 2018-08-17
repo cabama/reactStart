@@ -12,6 +12,17 @@
       "single",
       "jsx-double"
     ],
+    "max-classes-per-file": [
+      true,
+      5,
+      "exclude-class-expressions"
+    ],
+    "curly": [
+      true,
+      "ignore-same-line"
+    ],
+    "no-debugger": false,
+    "no-console": false,
     "no-submodule-imports": false,
     // I prefer no semi colons :)
     "semicolon": [
