@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import MenuIcon from '@material-ui/icons/Menu'
 import * as React from 'react'
+import AvatarComponent from './AvatarComponent/AvatarComponent'
 
 const styles = {
   flex: {
@@ -24,12 +25,9 @@ export function MenuBar(props: any) {
     <div >
       <AppBar position="static">
         <Toolbar>
-          <IconButton  color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="title" color="inherit">
-            ReshuHormiguero
-          </Typography>
+          <IconButton  color="inherit" aria-label="Menu"><MenuIcon /></IconButton>
+          <Typography variant="title" color="inherit" style={{flexGrow: 1}}> ReshuHormiguero</Typography>
+          <AvatarComponent/>
         </Toolbar>
       </AppBar>
     </div>

@@ -7,15 +7,15 @@ import './App.css'
 import { LeftMenu } from './Components/LeftMenu/LeftMenu'
 import { MainView } from './Components/MainView/MainView'
 import { MenuBar } from './Components/Menu/MenuBar'
-import { userReducer } from './Redux/Reducers/userReducer'
+import { MyStore } from './Redux/Store/Store'
 
 class App extends React.Component {
 
-  private store: Store<any>
+  private store: any
 
   constructor(props: any) {
     super(props)
-    this.store = createStore(userReducer) as Store<any>
+    this.store = createStore(MyStore) as Store<any>
   }
 
   public render() {
