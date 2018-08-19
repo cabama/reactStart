@@ -1,22 +1,14 @@
 
 import { LoginService } from '../../Services/LoginService'
-import { IUserPayloads } from '../Actions/userActions'
+import { IUserActions, UserTypes} from '../Actions/UserActions'
 import { defaultUser, IUserStore } from '../Store/userStore'
-import { IAction } from './index'
 
-export const userTypes = {
-  loginToken : 'LOGIN_TOKEN',
-  loginEmail: 'LOGIN_EMAIL',
-  loginSocial: 'LOGIN_SOCIAL_ACOUNT',
-  logout: 'LOGOUT_USER',
-}
-
-export const userReducer = (state: IUserStore = defaultUser, action: IAction<IUserPayloads>) => {
+export const userReducer = (state: IUserStore = defaultUser, action: IUserActions) => {
 
   switch (action.type) {
-    case userTypes.loginToken:
+    case UserTypes.loginToken:
       return LoginService.loginWithToken()
-    case userTypes.logout:
+    case UserTypes.logout:
       return LoginService.logOut()
     default:
       return state

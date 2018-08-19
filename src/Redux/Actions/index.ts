@@ -1,4 +1,4 @@
 export interface IAction <T> {
-    type: any
+    type: string
     payload: T
 }

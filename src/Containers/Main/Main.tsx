@@ -28,8 +28,8 @@ class MainPage extends React.Component {
   public render() {
     return (
       <Button onClick={this.handleAuth} variant="raised" color="primary" style={{ marginTop: '10px' }}>
-        <Icon>fingerprint</Icon>
-        Login with googleAuth
+        <Icon>home</Icon>
+        Main Page
       </Button>
     )
   }

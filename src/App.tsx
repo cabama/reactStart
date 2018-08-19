@@ -1,13 +1,28 @@
-import { Grid } from '@material-ui/core'
 import * as React from 'react'
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router} from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { createStore, Store } from 'redux'
 import './App.css'
+// import { LeftMenuDesktop } from './Components/LeftMenu/LeftMenuDesktop'
 import { LeftMenu } from './Components/LeftMenu/LeftMenu'
 import { MainView } from './Components/MainView/MainView'
 import { MenuBar } from './Components/Menu/MenuBar'
 import { MyStore } from './Redux/Store/Store'
+
+const AppStyle: React.CSSProperties = {
+  flexGrow: 1,
+  height: 430,
+  zIndex: 1,
+  overflow: 'hidden',
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'row',
+}
+
+const MainStyle = {
+  flexGrow: 1,
+  minWidth: 0,
+}
 
 class App extends React.Component {
 
@@ -25,12 +40,12 @@ class App extends React.Component {
           <Router>
             <div>
               <MenuBar />
-              <Grid container={true} spacing={0}>
-                <Grid item={true} xs={12} sm={3} md={2}>
-                  <LeftMenu />
-                </Grid>
-                <MainView />
-              </Grid>
+              <div style={AppStyle}>
+                <LeftMenu />
+                <main style={MainStyle}>
+                  <MainView />
+                </main>
+              </div>
             </div>
           </Router>
         </Provider>

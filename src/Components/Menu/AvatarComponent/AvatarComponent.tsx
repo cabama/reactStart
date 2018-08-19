@@ -3,6 +3,8 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+import { changeMobileView, setMobileView } from '../../../Redux/Actions/setupActions'
 
 interface IState {
   anchorElement: HTMLElement | null,
@@ -13,7 +15,6 @@ class Profile extends React.Component<any, IState> {
   constructor(props: any, state: IState) {
     super(props, state)
     this.state = { anchorElement: null }
-    this.handleOpenMenu.bind(this)
   }
 
   public render() {
@@ -58,6 +59,14 @@ const mapStateToProps = (state: any) => {
   }
 }
 
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    setMobileView: (mobileDevice: boolean) => dispatch(setMobileView(mobileDevice)),
+    changeMobileView: dispatch(changeMobileView()),
+  }
+}
+
 export default connect(
   mapStateToProps,
+  mapDispatchToProps,
 )(Profile)

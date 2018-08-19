@@ -1,43 +1,67 @@
-import Divider from '@material-ui/core/Divider'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import Money from '@material-ui/icons/AttachMoney'
-import InboxIcon from '@material-ui/icons/Inbox'
-import NoteAdd from '@material-ui/icons/NoteAdd'
 import * as React from 'react'
+import { connect } from 'react-redux'
+import { setMobileView } from '../../Redux/Actions/setupActions'
+import { ISetUpStore } from '../../Redux/Store/setupStore'
+import { LeftMenuDesktop } from './LeftMenuDesktop'
+import { LeftMenuResposive } from './LeftMenuResposive'
 
-const menuElements = [
-  { title: 'Profile', icon: InboxIcon },
-  { title: 'Notes', icon: NoteAdd },
-  { title: 'Billing', icon: Money },
-]
-
-const elementList = (title: string, icon: React.ComponentType) => (
-  <ListItem button={true}>
-    <ListItemIcon>
-      {React.createElement(icon)}
-    </ListItemIcon>
-    <ListItemText primary={title} />
-  </ListItem>
-)
-
-export function LeftMenu(props: any) {
-  return (
-  <div className="LeftMenu">
-    <List component="nav">
-      {menuElements.map((element) => elementList(element.title, element.icon))}
-    </List>
-    <Divider />
-    <List component="nav">
-      <ListItem button={true}>
-        <ListItemText primary="Trash" />
-      </ListItem>
-      <ListItem button={true} component="a" href="#simple-list">
-        <ListItemText primary="Spam" />
-      </ListItem>
-    </List>
-  </div>
-  )
+interface IProps {
+  setup: ISetUpStore,
+  actions: {
+    setMobileView: (x: boolean) => void,
+  }
 }
+
+class Drawablemenu extends React.Component<IProps> {
+
+  constructor(props: any, state: any) {
+    super(props, state)
+    debugger
+  }
+
+  public render() {
+    return (
+      <div><this.getDrawableMenu/></div>
+    )
+  }
+
+  public componentDidMount() {
+    this.updateDimensions()
+    window.addEventListener('resize', this.updateDimensions)
+  }
+
+  public componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions)
+  }
+
+  public getDrawableMenu = () => {
+    return this.props.setup.isMobile
+      ? <LeftMenuResposive/>
+      : <LeftMenuDesktop/>
+  }
+
+  private updateDimensions = () => {
+    const isMobile = window.innerWidth < 770
+    this.props.actions.setMobileView(isMobile)
+  }
+
+}
+
+const mapStateToProps = (state: any) => {
+  return {
+    setup: state.setup,
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    actions: {
+      setMobileView: (isMobile: boolean) => dispatch(setMobileView(isMobile)),
+    },
+  }
+}
+
+export const LeftMenu = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Drawablemenu)
