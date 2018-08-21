@@ -36,7 +36,7 @@ const styles = (theme: any) => ({
 })
 
 const menuElements = [
-  { title: 'Profile', icon: InboxIcon },
+  { title: 'Main', icon: InboxIcon },
   { title: 'Notes', icon: NoteAdd },
   { title: 'Billing', icon: Money },
 ]

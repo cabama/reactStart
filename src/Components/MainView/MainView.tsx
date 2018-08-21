@@ -1,6 +1,7 @@
 import { Grid } from '@material-ui/core'
 import * as React from 'react'
 import { Route } from 'react-router-dom'
+import { LoginPage } from '../../Containers/Login/Login'
 import { MainPageContainer } from '../../Containers/Main/Main'
 
 const About = () => (
@@ -24,6 +25,7 @@ export class MainView extends React.Component {
             <Route exact={true} path="/" component={MainPageContainer} />
             <Route path="/about" component={About} />
             <Route path="/topics" component={Topics} />
+            <Route path="/login" component={LoginPage} />
           </div>
       </Grid>
     )

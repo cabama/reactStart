@@ -26,7 +26,7 @@ export class LoginService {
     else return null
   }
 
-  public async loginWithEmail(email: string, password: string): Promise <IUserStore | null> {
+  public static async loginWithEmail(email: string, password: string): Promise <IUserStore | null> {
     const emailRequest = await LoginBridge.loginWithEmail(email, password)
     const emailResponse = await emailRequest.json()
     if (emailResponse && emailResponse.body && emailResponse.body.token) {
