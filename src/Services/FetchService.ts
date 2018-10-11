@@ -18,7 +18,6 @@ export class Fetch {
         init = { headers: { Authentication: token }}
       }
     }
-    debugger
     return fetch (url, init)
   }
 

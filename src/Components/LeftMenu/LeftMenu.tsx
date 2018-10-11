@@ -16,7 +16,6 @@ class Drawablemenu extends React.Component<IProps> {
 
   constructor(props: any, state: any) {
     super(props, state)
-    debugger
   }
 
   public render() {

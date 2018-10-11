@@ -26,7 +26,7 @@ export function MenuBar(props: any) {
       <AppBar position="static">
         <Toolbar>
           <IconButton  color="inherit" aria-label="Menu"><MenuIcon /></IconButton>
-          <Typography variant="title" color="inherit" style={{flexGrow: 1}}> ReshuHormiguero</Typography>
+          <Typography variant="title" color="inherit" style={{flexGrow: 1}}> ReshuHormiguero </Typography>
           <AvatarComponent/>
         </Toolbar>
       </AppBar>

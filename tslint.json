@@ -21,6 +21,7 @@
       true,
       "ignore-same-line"
     ],
+    "jsx-no-lambda": false,
     "no-debugger": false,
     "no-console": false,
     "no-submodule-imports": false,

@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Fetch } from '../../Services/FetchService'
+import View from '../View/View'
 
 class MainPage extends React.Component {
 
@@ -27,10 +28,12 @@ class MainPage extends React.Component {
 
   public render() {
     return (
-      <Button onClick={this.handleAuth} variant="raised" color="primary" style={{ marginTop: '10px' }}>
-        <Icon>home</Icon>
-        Main Page
-      </Button>
+      <View MenuBar={true} SideMenu={true}>
+        <Button onClick={this.handleAuth} variant="raised" color="primary" style={{ marginTop: '10px' }}>
+          <Icon>home</Icon>
+          Main Page
+        </Button>
+      </View>
     )
   }
 }

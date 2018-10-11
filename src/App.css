@@ -1,3 +1,9 @@
+:root {
+  --mc-primary: #f44336;
+  --mc-light: #ff7961;
+  --mc-dark: #ba000d;
+}
+
 .App {
   text-align: center;
   display: flex;
