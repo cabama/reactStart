@@ -13,6 +13,14 @@ export const userReducer = (state: IUserStore = defaultUser, action: IUserAction
       ))
       return state
     case UserTypes.loginToken:
+      LoginService.loginWithToken()
+        .then((userP) => {
+          if (!action.action.dispatch) return
+          action.action.dispatch({
+            type: UserTypes.logged,
+            action: { user: userP || undefined },
+          })
+        })
       return state
     case UserTypes.logout:
       return LoginService.logOut()
