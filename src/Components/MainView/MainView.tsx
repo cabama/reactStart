@@ -21,7 +21,7 @@ const PrivateRoute = (props: IPrivateRouteProps) => {
   ? props.privateComponent
   : props.redirectComponent
   routeProps.component = component
-  return <Route path={props.path} component={component}/>
+  return <Route exact={props.exact} path={props.path} component={component}/>
 }
 
 const Topics = () => (
