@@ -1,61 +1,64 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { setMobileView } from '../../Redux/Actions/setupActions'
+import MediaQuery from 'react-responsive'
+import { Dispatch } from 'redux'
+import { setupTypes } from '../../Redux/Actions/setupActions'
 import { ISetUpStore } from '../../Redux/Store/setupStore'
 import { LeftMenuDesktop } from './LeftMenuDesktop'
 import { LeftMenuResposive } from './LeftMenuResposive'
 
-interface IProps {
-  setup: ISetUpStore,
-  actions: {
-    setMobileView: (x: boolean) => void,
-  }
-}
+type DrawableProps = IStateToProps & IDispatchToProps
 
-class Drawablemenu extends React.Component<IProps> {
+class Drawablemenu extends React.Component<DrawableProps> {
 
-  constructor(props: any, state: any) {
+  constructor(props: DrawableProps, state: any) {
     super(props, state)
   }
 
   public render() {
+    debugger
     return (
-      <div><this.getDrawableMenu/></div>
+      <MediaQuery maxDeviceWidth={1224}>
+        {(matches) => this.getDrawableMenu(matches)}
+      </MediaQuery>
     )
   }
 
-  public componentDidMount() {
-    this.updateDimensions()
-    window.addEventListener('resize', this.updateDimensions)
-  }
-
-  public componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions)
-  }
-
-  public getDrawableMenu = () => {
-    return this.props.setup.isMobile
-      ? <LeftMenuResposive/>
-      : <LeftMenuDesktop/>
-  }
-
-  private updateDimensions = () => {
-    const isMobile = window.innerWidth < 770
-    this.props.actions.setMobileView(isMobile)
+  public getDrawableMenu = (matches: boolean) => {
+    const visible = this.props.state.setup.isDrawableVisible
+    const close = this.props.dispatcher.closeMenu
+    if (matches) return <LeftMenuResposive visible={visible} close={close}/>
+    else return <LeftMenuDesktop visible={visible} close={close}/>
   }
 
 }
 
-const mapStateToProps = (state: any) => {
-  return {
-    setup: state.setup,
+interface IStateToProps {
+  state: {
+    setup: ISetUpStore,
   }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapStateToProps = (state: any): IStateToProps => {
   return {
-    actions: {
-      setMobileView: (isMobile: boolean) => dispatch(setMobileView(isMobile)),
+    state: {
+      setup: state.setup,
+    },
+  }
+}
+
+interface IDispatchToProps {
+  dispatcher: {
+    closeMenu: () => void,
+  }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch): IDispatchToProps => {
+  return {
+    dispatcher: {
+      closeMenu: () => dispatch(
+        { type: setupTypes.closeDrawable },
+      ),
     },
   }
 }

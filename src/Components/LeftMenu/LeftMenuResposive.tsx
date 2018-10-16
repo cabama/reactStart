@@ -76,8 +76,8 @@ class DrawerMenuResposive extends React.Component<any, any> {
       <Drawer
         variant="temporary"
         anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-        open={this.state.mobileOpen}
-        onClose={this.handleDrawerToggle}
+        open={this.props.visible}
+        onClose={this.props.close}
         classes={{ paper: classes.drawerPaper}}
         ModalProps={{ keepMounted: true }}
       >
@@ -97,9 +97,6 @@ class DrawerMenuResposive extends React.Component<any, any> {
     )
   }
 
-  private handleDrawerToggle = () => {
-    this.setState((state: any) => ({ mobileOpen: !state.mobileOpen }))
-  }
 }
 
 export const LeftMenuResposive = withStyles(styles as any, { withTheme: true })(DrawerMenuResposive)

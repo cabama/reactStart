@@ -49,8 +49,13 @@ export class MainViewComponent extends React.Component<MainViewComponentProps> {
     return (
       <Grid item={true} xs={12} sm={12} md={12}>
           <div>
-            <Route exact={true} path="/" component={MainPageContainer} />
-            {/* <PrivateRoute path="/about" component={About} indexComponent={Topics}/> */}
+            <PrivateRoute
+              exact={true}
+              path="/"
+              privateComponent={MainPageContainer}
+              redirectComponent={Login}
+              isAuth={isAuth}
+            />
             <Route path="/topics" component={Topics} />
             <Route path="/login" component={Login} />
             <Route path="/signIn" component={SignIn} />

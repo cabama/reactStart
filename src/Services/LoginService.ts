@@ -15,6 +15,10 @@ export class LoginService {
     return localStorage.getItem(TOKEN_KEY) || null
   }
 
+  public static removeToken() {
+    return localStorage.removeItem(TOKEN_KEY)
+  }
+
   public static setToken(token: string) {
     localStorage.setItem(TOKEN_KEY, token)
   }
@@ -26,7 +30,9 @@ export class LoginService {
   public static async loginWithToken(): Promise<IUserResponse | null> {
     const token = LoginService.getToken()
     if (!token) return null
-    const responseJson = await LoginBridge.loginWithToken(token).then((response) => response.json())
+    const responseJson = await LoginBridge.loginWithToken(token)
+      .then((response) => response.json())
+      .catch(() => LoginService.removeToken)
     if (responseJson && responseJson.user) return responseJson.user
     else return null
   }
