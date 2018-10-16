@@ -39,7 +39,7 @@ class Profile extends React.Component<any, IState> {
   }
 
   private showUser(): string {
-    return this.props.user.singIn ? 'C' : '-'
+    return this.props.user.login ? 'C' : '-'
   }
 
   private handleOpenMenu = (event: React.MouseEvent<HTMLDivElement>) => {

@@ -16,7 +16,6 @@ class Drawablemenu extends React.Component<DrawableProps> {
   }
 
   public render() {
-    debugger
     return (
       <MediaQuery maxDeviceWidth={1224}>
         {(matches) => this.getDrawableMenu(matches)}

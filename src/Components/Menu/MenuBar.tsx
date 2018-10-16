@@ -24,7 +24,6 @@ const styles = {
 }
 
 export function MenuBarView(props: any) {
-  debugger
   return (
     <div >
       <AppBar position="static">
