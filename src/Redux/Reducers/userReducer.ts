@@ -23,7 +23,8 @@ export const userReducer = (state: IUserStore = defaultUser, action: IUserAction
         })
       return state
     case UserTypes.logout:
-      return LoginService.logOut()
+      LoginService.removeToken()
+      return defaultUser
     case UserTypes.logged:
       const user = action.action.user
       return {...state, ...user, login: true}

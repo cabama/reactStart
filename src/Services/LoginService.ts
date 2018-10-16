@@ -23,10 +23,6 @@ export class LoginService {
     localStorage.setItem(TOKEN_KEY, token)
   }
 
-  public static logOut() {
-    localStorage.removeItem(TOKEN_KEY)
-  }
-
   public static async loginWithToken(): Promise<IUserResponse | null> {
     const token = LoginService.getToken()
     if (!token) return null
