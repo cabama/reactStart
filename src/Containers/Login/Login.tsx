@@ -9,8 +9,15 @@ import {
 } from '@material-ui/core'
 import * as React from 'react'
 import { connect } from 'react-redux'
+import * as yup from 'yup'
 import { UserTypes } from '../../Redux/Actions/UserActions'
+import { yupValidateForm } from '../../Services/YupHelper'
 import { CardStyle, ContainerStyle } from './LoginStyle'
+
+const formSchema: yup.ObjectSchema<any> = yup.object({
+  email: yup.string().required('Email is Requerided').email('Is not email valid.'),
+  password: yup.string().required(),
+})
 
 interface IProps extends  IDispatchProps, IStateToProps {
   state: { user: any }
@@ -19,7 +26,7 @@ interface IProps extends  IDispatchProps, IStateToProps {
 }
 
 interface IState {
-  username: string
+  email: string
   password: string
 }
 
@@ -27,21 +34,27 @@ export class LoginPage extends React.Component<IProps, IState> {
   public constructor(props: IProps, state: IState) {
     super(props, state)
     this.state = {
-      username: '',
+      email: '',
       password: '',
     }
   }
 
   public login = () => {
-    console.log('user', this.state.username)
+    console.log('user', this.state.email)
     console.log('password', this.state.password)
-    this.props.dispatch.loginWithEmail(this.state.username, this.state.password)
+    this.props.dispatch.loginWithEmail(this.state.email, this.state.password)
   }
 
   public render() {
+    const formValues = { email: this.state.email, password: this.state.password }
+    const validationErrors = yupValidateForm(formSchema, formValues)
+    const isValidForm = formSchema.isValidSync(formValues)
+
     if (this.props.state.user.singIn === true) this.props.history.push('/')
     return (
-      <div className={ContainerStyle}>
+
+    <Grid className={ContainerStyle} container={true} xs={12} md={12} justify="center" alignItems="center">
+    <Grid container={true} xs={11} md={6} justify="center">
         <Card className={CardStyle}>
           <CardHeader title="LOGIN"/>
           <CardContent>
@@ -52,17 +65,18 @@ export class LoginPage extends React.Component<IProps, IState> {
               alignItems="center"
               spacing={24}
             >
-              <Grid item={true} xs={6} style={{ width: '100%' }}>
+              <Grid item={true} md={6} xs={12} style={{ width: '100%' }}>
                 <TextField
+                  error={(this.state.email !== '' && validationErrors && !!validationErrors.email)}
                   id="standard-name"
-                  label="Name"
-                  value={this.state.username}
-                  onChange={(event) => this.setState({ username: event.target.value })}
+                  label="Email"
+                  value={this.state.email}
+                  onChange={(event) => this.setState({ email: event.target.value })}
                   margin="normal"
                   style={{ width: '100%' }}
                 />
               </Grid>
-              <Grid item={true} xs={6} style={{ width: '100%' }}>
+              <Grid item={true} md={6} xs={12} style={{ width: '100%' }}>
                 <TextField
                   id="standard-name"
                   label="Password"
@@ -77,11 +91,11 @@ export class LoginPage extends React.Component<IProps, IState> {
           </CardContent>
 
           <CardActions style={{ justifyContent: 'space-around' }}>
-            <Button color="primary" onClick={() => this.login()}>Login</Button>
+            <Button color="primary" disabled={!isValidForm} onClick={() => this.login()}>Login</Button>
           </CardActions>
         </Card>
-        {JSON.stringify(this.props.state.user)}
-      </div>
+      </Grid>
+      </Grid>
     )
   }
 }
