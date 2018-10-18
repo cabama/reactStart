@@ -5,6 +5,7 @@ import { RouteComponentProps, RouteProps } from 'react-router'
 import { Route } from 'react-router-dom'
 import { Login } from '../../Containers/Login/Login'
 import { MainPageContainer } from '../../Containers/Main/Main'
+import { Profile } from '../../Containers/Profile/Profile'
 import { SignIn } from '../../Containers/SignIn/SignIn'
 import { UserTypes } from '../../Redux/Actions/UserActions'
 import { IUserStore } from '../../Redux/Store/userStore'
@@ -26,10 +27,6 @@ const PrivateRoute = (props: IPrivateRouteProps) => {
 
 const Topics = () => (
   <div>Topics</div>
-)
-
-const Private = () => (
-  <div>Estas en una ruta privada</div>
 )
 
 type MainViewComponentProps = IStateToProps & IDispatchProps
@@ -56,16 +53,15 @@ export class MainViewComponent extends React.Component<MainViewComponentProps> {
               redirectComponent={Login}
               isAuth={isAuth}
             />
-            <Route path="/topics" component={Topics} />
-            <Route path="/login" component={Login} />
-            <Route path="/signIn" component={SignIn} />
             <PrivateRoute
-              path="/private"
-              component={Topics}
-              privateComponent={Private}
+              path="/profile"
+              privateComponent={Profile}
               redirectComponent={Login}
               isAuth={isAuth}
             />
+            <Route path="/topics" component={Topics} />
+            <Route path="/login" component={Login} />
+            <Route path="/signIn" component={SignIn} />
           </div>
       </Grid>
     )

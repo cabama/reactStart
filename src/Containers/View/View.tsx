@@ -4,7 +4,6 @@ import { MenuBar } from '../../Components/Menu/MenuBar'
 
 const AppStyle: React.CSSProperties = {
   flexGrow: 1,
-  height: 430,
   zIndex: 1,
   overflow: 'hidden',
   position: 'relative',
@@ -31,7 +30,6 @@ class View extends React.Component <IProps> {
   public render() {
     return (
       <div className="View">
-        <div>
           {<MenuBar/>}
           <div style={AppStyle}>
             <LeftMenu/>
@@ -40,7 +38,6 @@ class View extends React.Component <IProps> {
             </main>
           </div>
         </div>
-      </div>
     )
   }
 }
