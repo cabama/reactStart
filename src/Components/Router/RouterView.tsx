@@ -2,7 +2,7 @@ import { Grid } from '@material-ui/core'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps, RouteProps } from 'react-router'
-import { Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Login } from '../../Containers/Login/Login'
 import { MainPageContainer } from '../../Containers/Main/Main'
 import { Profile } from '../../Containers/Profile/Profile'
@@ -45,7 +45,8 @@ export class MainViewComponent extends React.Component<MainViewComponentProps> {
     const isAuth = this.props.state.user.login
     return (
       <Grid item={true} xs={12} sm={12} md={12}>
-          <div>
+      <Router>
+        <Switch>
             <PrivateRoute
               exact={true}
               path="/"
@@ -62,7 +63,8 @@ export class MainViewComponent extends React.Component<MainViewComponentProps> {
             <Route path="/topics" component={Topics} />
             <Route path="/login" component={Login} />
             <Route path="/signIn" component={SignIn} />
-          </div>
+          </Switch>
+      </Router>
       </Grid>
     )
   }

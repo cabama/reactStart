@@ -3,6 +3,7 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { Dispatch } from 'redux'
 import { UserTypes } from '../../../Redux/Actions/UserActions'
 import { IUserStore } from '../../../Redux/Store/userStore'
@@ -11,18 +12,24 @@ interface IState {
   anchorElement: HTMLElement | null,
 }
 
-type IProps = IStateToProps & IDispatchToProps
+type IProps = {
+  history: any,
+} & IStateToProps & IDispatchToProps
 
-class Profile extends React.Component<IProps, IState> {
+class AvatarComponent extends React.Component<IProps, IState> {
 
   constructor(props: IProps, state: IState) {
     super(props, state)
     this.state = { anchorElement: null }
   }
 
+  public redirectProfile = () => {
+    this.props.history.push('/profile', null)
+    console.log('hitsoty', this.props.history)
+  }
+
   public render() {
     const open = Boolean(this.state.anchorElement) || false
-
     return (
       <div>
         <Avatar onClick={this.handleOpenMenu} style={{ backgroundColor: 'red' }}>{this.showUser()}</Avatar>
@@ -34,7 +41,9 @@ class Profile extends React.Component<IProps, IState> {
           open={open}
           onClose={this.handleCloseMenu}
         >
-          <MenuItem onClick={this.handleCloseMenu}>Profile</MenuItem>
+          <MenuItem onClick={() => this.redirectProfile()}>
+            profile
+          </MenuItem>
           <MenuItem onClick={this.props.dispatch.logout}>Log out</MenuItem>
         </Menu>
       </div>
@@ -87,7 +96,7 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchToProps => {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Profile)
+)(AvatarComponent))
