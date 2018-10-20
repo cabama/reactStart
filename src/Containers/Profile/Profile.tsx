@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Button,
   Card,
   CardActions,
@@ -8,13 +9,16 @@ import {
   TextField,
 } from '@material-ui/core'
 import * as React from 'react'
+import { connect } from 'react-redux'
 import { object, ObjectSchema, string, ValidationError } from 'yup'
+import { IMyStore } from '../../Redux/Store/Store'
+import { baseUrl } from '../../shared/urls'
 import View from '../View/View'
-import { CardStyle, ContainerStyle } from './ProfileStyle'
+import { CardStyle } from './ProfileStyle'
 
-interface IProps {
-  history: { push: (url: string) => void }
-}
+type IProps = {
+  history: { push: (url: string) => void },
+} & ReturnType<typeof mapStateToProps>
 
 interface IFormFields {
   email: string
@@ -50,7 +54,7 @@ const getYupErrors = (error: ValidationError) => {
   return errorObject
 }
 
-export class Profile extends React.Component<IProps, any> {
+export class ProfileView extends React.Component<IProps, any> {
 
   public formSchema: ObjectSchema<{ [k in keyof IFormFields]: any }> = object({
     email: string().required('Email is Requerided').email('Is not email valid.'),
@@ -61,9 +65,9 @@ export class Profile extends React.Component<IProps, any> {
   public constructor(props: IProps, state: IState) {
     super(props, state)
     this.state = {
-      email: '',
-      name: '',
-      surname: '',
+      email: this.props.state.user.email || '',
+      name: this.props.state.user.name || '',
+      surname: this.props.state.user.name || '',
       validationErrors: {},
     }
   }
@@ -82,9 +86,10 @@ export class Profile extends React.Component<IProps, any> {
   }
 
   public render() {
+    const avatarURL = baseUrl + '/public/avatar/unkown.png'
     return (
       <View MenuBar={true} SideMenu={true}>
-      <div className={ContainerStyle}>
+        <Grid container={true} xs={11} justify="center" alignItems="center">
         <Card className={CardStyle}>
           <CardHeader title="Profile" />
           <CardContent>
@@ -95,6 +100,7 @@ export class Profile extends React.Component<IProps, any> {
               alignItems="center"
               spacing={24}
             >
+              <Avatar src={avatarURL} style={{height: 150, width: 150}} />
               {this.renderForm()}
             </Grid>
           </CardContent>
@@ -103,24 +109,24 @@ export class Profile extends React.Component<IProps, any> {
             <Button color="primary" onClick={() => null}>Update Profile</Button>
           </CardActions>
         </Card>
-      </div>
+      </Grid>
       </View>
     )
   }
 
   private renderForm() {
     return (
-      <div style={{ width: '100%' }}>
+      <Grid item={true} xs={12} container={true} direction="row" justify="center" alignItems="center">
         {this.setTextField({name: 'name', type: 'text'})}
         {this.setTextField({name: 'surname', type: 'text'})}
         {this.setTextField({name: 'email', type: 'text'})}
-      </div>
+      </Grid>
     )
   }
 
   private setTextField(setup: ISetTextField) {
     return (
-      <Grid item={true} xs={6} style={{ width: '100%' }}>
+      <Grid item={true} xs={12} md={8} container={true} direction="row" justify="center" alignItems="center">
         <TextField
           error={this.state.validationErrors[setup.name]}
           label={setup.label || setup.name}
@@ -135,3 +141,13 @@ export class Profile extends React.Component<IProps, any> {
     )
   }
 }
+
+const mapStateToProps = (myState: IMyStore) => {
+  return {
+    state: {
+      user: myState.user,
+    },
+  }
+}
+
+export const Profile = connect(mapStateToProps)(ProfileView)

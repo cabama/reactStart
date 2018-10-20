@@ -1,5 +1,5 @@
 export const ENVIROMENT = {
   urls: {
-    baseUrl: 'localhost:2525/api',
+    baseUrl: '192.168.1.10:2525/api',
   },
 }

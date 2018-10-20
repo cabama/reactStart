@@ -9,5 +9,5 @@ export const ContainerStyle = style({
 
 export const CardStyle = style({
   marginTop: '20px',
-  width: '60%',
+  width: '100%',
 })
