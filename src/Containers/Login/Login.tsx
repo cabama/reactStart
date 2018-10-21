@@ -12,12 +12,22 @@ import { connect } from 'react-redux'
 import * as yup from 'yup'
 import { UserTypes } from '../../Redux/Actions/UserActions'
 import { yupValidateForm } from '../../Services/YupHelper'
+import { mcPrimary } from '../../shared/colors'
+import View from '../View/View'
 import { CardStyle, ContainerStyle } from './LoginStyle'
 
 const formSchema: yup.ObjectSchema<any> = yup.object({
   email: yup.string().required('Email is Requerided').email('Is not email valid.'),
   password: yup.string().required(),
 })
+
+const blueDivStyle: React.CSSProperties = {
+  backgroundColor: mcPrimary,
+  height: '45%',
+  width: '100%',
+  position: 'absolute',
+  zIndex: -1,
+}
 
 interface IProps extends  IDispatchProps, IStateToProps {
   state: { user: any }
@@ -53,8 +63,9 @@ export class LoginPage extends React.Component<IProps, IState> {
     if (this.props.state.user.singIn === true) this.props.history.push('/')
     return (
 
-    <Grid className={ContainerStyle} container={true} xs={12} md={12} justify="center" alignItems="center">
-    <Grid container={true} xs={11} md={6} justify="center">
+    <View className={ContainerStyle} MenuBar={false} SideMenu={false}>
+        <Card className="Azuron" style={blueDivStyle}/>
+        <Grid container={true} xs={11} md={6} justify="center" alignItems="center">
         <Card className={CardStyle}>
           <CardHeader title="LOGIN"/>
           <CardContent>
@@ -94,8 +105,8 @@ export class LoginPage extends React.Component<IProps, IState> {
             <Button color="primary" disabled={!isValidForm} onClick={() => this.login()}>Login</Button>
           </CardActions>
         </Card>
-      </Grid>
-      </Grid>
+        </Grid>
+      </View>
     )
   }
 }

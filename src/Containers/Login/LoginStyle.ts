@@ -1,8 +1,7 @@
-import {blue} from '@material-ui/core/colors'
 import { style } from 'typestyle'
 
 export const ContainerStyle = style({
-  backgroundColor: blue[900],
+  height: '100vh',
 })
 
 export const CardStyle = style({

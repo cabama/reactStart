@@ -12,14 +12,17 @@ const AppStyle: React.CSSProperties = {
   flexDirection: 'row',
 }
 
-const MainStyle = {
+const MainStyle: React.CSSProperties = {
   flexGrow: 1,
   minWidth: 0,
+  paddingTop: '10px',
+  paddingBottom: '10px',
 }
 
 interface IProps {
   MenuBar: boolean
   SideMenu: boolean
+  className?: string
 }
 
 class View extends React.Component <IProps> {
@@ -30,10 +33,10 @@ class View extends React.Component <IProps> {
 
   public render () {
     return (
-      <div className="View" style={{height: '100%'}}>
+      <div className={`View ${this.props.className}`}>
           {this.getMenuBar()}
         <div style={{ ...AppStyle, height: 'calc(100% - 56px)'}}>
-          <LeftMenu/>
+          {this.getSideMenu()}
           <Grid container={true} justify="center" style={MainStyle}>
             {this.props.children}
           </Grid>
@@ -42,11 +45,11 @@ class View extends React.Component <IProps> {
     )
   }
 
-  // private calcChildrenHeight () {
-  //   return this.props.MenuBar
-  //     ? 'calc(100% - 56px)'
-  //     : '100%'
-  // }
+  private getSideMenu () {
+    return this.props.SideMenu
+      ? <LeftMenu />
+      : null
+  }
 
   private getMenuBar () {
     return this.props.MenuBar

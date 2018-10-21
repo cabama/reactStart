@@ -33,7 +33,7 @@ export function MenuBarView (props: any) {
             aria-label="Menu"
             onClick={props.changeDrawableView}
           >
-            <MenuIcon />
+            <MenuIcon />º
           </IconButton>
           <Typography variant="title" color="inherit" style={{flexGrow: 1}}> ReshuHormiguero </Typography>
           <AvatarComponent/>
