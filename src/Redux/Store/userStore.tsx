@@ -1,6 +1,7 @@
 import { LoginService } from '../../Services/LoginService'
 
 export interface IUserStore {
+    avatar?: string
     signed: boolean
     login: boolean
     email: string

@@ -60,6 +60,8 @@ const getYupErrors = (error: ValidationError) => {
 
 export class ProfileView extends React.Component<IProps, any> {
 
+  public inputRef: any = React.createRef()
+
   public formSchema: ObjectSchema<{ [k in keyof IFormFields]: any }> = object({
     email: string().required('Email is Requerided').email('Is not email valid.'),
     name: string().required('Name is Requerided.'),
@@ -90,7 +92,7 @@ export class ProfileView extends React.Component<IProps, any> {
   }
 
   public render () {
-    const avatarURL = baseUrl + '/public/avatar/unkown.png'
+    const avatarURL = baseUrl + '/public/avatar/' + this.props.state.user.avatar || 'unkown.png'
     return (
       <View MenuBar={true} SideMenu={true}>
         <Grid container={true} xs={11} justify="center" alignItems="center">
@@ -104,7 +106,13 @@ export class ProfileView extends React.Component<IProps, any> {
               alignItems="center"
               spacing={24}
             >
-              <Avatar src={avatarURL} style={{height: 150, width: 150}} />
+              <Avatar src={avatarURL} style={{height: 150, width: 150}} onClick={() => this.inputRef.current.click()} />
+              <input
+                type="file"
+                ref={this.inputRef}
+                style={{ display: 'none' }}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => this.handleChangeAvatar(event)}
+              />
               {this.renderForm()}
             </Grid>
           </CardContent>
@@ -145,6 +153,16 @@ export class ProfileView extends React.Component<IProps, any> {
     )
   }
 
+  private handleChangeAvatar (e: React.ChangeEvent<HTMLInputElement>) {
+    const img = e.target.files![0]
+    const formData: FormData = new FormData()
+    formData.append('avatar', img)
+    new Fetch().fetch('users/avatar', { method: 'POST', body: formData })
+      .then(response => response.json())
+      .then(value => this.props.dispatchers.updateProfile(value))
+      .catch(error => console.error(error))
+  }
+
   private fetchPutProfile () {
     const formData: FormData = new FormData()
     formData.append('name', this.state.name)
@@ -152,7 +170,7 @@ export class ProfileView extends React.Component<IProps, any> {
     new Fetch().fetch('users/me', {method: 'PUT', body: formData})
       .then(response => response.json())
       .then(value => this.props.dispatchers.updateProfile(value))
-      .catch(error => console.log(error))
+      .catch(error => console.error(error))
   }
 }
 
