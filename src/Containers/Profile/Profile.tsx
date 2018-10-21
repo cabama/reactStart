@@ -107,7 +107,7 @@ export class ProfileView extends React.Component<IProps, any> {
           </CardContent>
 
           <CardActions style={{ justifyContent: 'space-around' }}>
-              <Button color="primary" onClick={this.fetchPutProfile}>Update Profile</Button>
+              <Button color="primary" onClick={() => this.fetchPutProfile.bind(this)()}>Update Profile</Button>
           </CardActions>
         </Card>
       </Grid>
@@ -143,10 +143,11 @@ export class ProfileView extends React.Component<IProps, any> {
   }
 
   private fetchPutProfile () {
+    debugger
     const formData: FormData = new FormData()
     formData.append('name', this.state.name)
     formData.append('surname', this.state.surname)
-    new Fetch().fetch('/api/users/me', {body: formData})
+    new Fetch().fetch('users/me', {method: 'PUT', body: formData})
       .then(response => console.log(response))
       .catch(error => console.log(error))
   }

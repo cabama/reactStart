@@ -1,14 +1,14 @@
-import {ENVIROMENT as DEV_EVIRONMENT} from './developer.env'
-import {ENVIROMENT as PROD_ENVIRONMENT} from './production.env'
+import { environment as devEnvironment} from './developerEnvironment'
+import { environment as prodEnvironment} from './productionEnvironment'
 
 export interface IEnvironment {
   urls: { baseUrl: string },
 }
 
 export function getEnviroment (): IEnvironment {
-  if (process.env.NODE_ENV === 'DEV') {
-    return DEV_EVIRONMENT
+  if (process.env.REACT_APP_MODE === 'DEV') {
+    return devEnvironment
   } else {
-    return PROD_ENVIRONMENT
+    return prodEnvironment
   }
 }

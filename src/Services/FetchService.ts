@@ -9,15 +9,18 @@ export class Fetch {
     this.baseUrl = getEnviroment().urls.baseUrl
   }
 
-  public async fetch (url: string, init?: RequestInit | undefined): Promise<Response> {
+  public async fetch (pathUrl: string, init?: RequestInit, baseUrl?: string): Promise<Response> {
     const token = LoginService.getToken()
     if (token) {
       if (init) {
-        init.headers = {...init.headers, ...{Authentication: token}}
+        init.headers = { ...init.headers, ...{ Authorization: 'JWT ' + token}}
       } else {
         init = { headers: { Authentication: token }}
       }
     }
+    const base = baseUrl || this.baseUrl
+    const url = base + '/' + pathUrl
+    debugger
     return fetch (url, init)
   }
 
