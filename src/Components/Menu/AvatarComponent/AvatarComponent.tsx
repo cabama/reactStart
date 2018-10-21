@@ -1,10 +1,12 @@
 import { Avatar } from '@material-ui/core'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
+import { withTheme, WithTheme } from '@material-ui/core/styles'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Dispatch } from 'redux'
+import { getUrlsEnviroment, IUrlsEnv } from '../../../Enviroments'
 import { UserTypes } from '../../../Redux/Actions/UserActions'
 import { IUserStore } from '../../../Redux/Store/userStore'
 
@@ -14,13 +16,18 @@ interface IState {
 
 type IProps = {
   history: any,
-} & IStateToProps & IDispatchToProps
+} & IStateToProps & IDispatchToProps & WithTheme
 
 class AvatarComponent extends React.Component<IProps, IState> {
+
+  private avatarStyle: React.CSSProperties
+  private urls: IUrlsEnv
 
   constructor (props: IProps, state: IState) {
     super(props, state)
     this.state = { anchorElement: null }
+    this.avatarStyle = { backgroundColor: this.props.theme.palette.secondary.dark }
+    this.urls = getUrlsEnviroment()
   }
 
   public redirectProfile = () => {
@@ -32,7 +39,13 @@ class AvatarComponent extends React.Component<IProps, IState> {
     const open = Boolean(this.state.anchorElement) || false
     return (
       <div>
-        <Avatar onClick={this.handleOpenMenu} style={{ backgroundColor: 'red' }}>{this.showUser()}</Avatar>
+        <Avatar
+          src={this.urls.baseAvatar + '/' + this.props.state.user.avatar}
+          onClick={this.handleOpenMenu}
+          style={this.avatarStyle}
+        >
+          {this.showUser()}
+        </Avatar>
         <Menu
           id="menu-appbar"
           anchorEl={this.state.anchorElement || undefined}
@@ -99,4 +112,4 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchToProps => {
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(AvatarComponent))
+)(withTheme()(AvatarComponent)))

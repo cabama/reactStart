@@ -2,10 +2,20 @@ import * as React from 'react'
 import { Provider } from 'react-redux'
 import { createStore, Store } from 'redux'
 
+import { colors, createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 import './App.css'
 // import { LeftMenuDesktop } from './Components/LeftMenu/LeftMenuDesktop'
 import { MainView } from './Components/Router/RouterView'
 import { MyStore } from './Redux/Store/Store'
+
+const theme = createMuiTheme(
+  {
+    palette: {
+      primary: colors.purple,
+      secondary: colors.yellow,
+    },
+  },
+)
 
 class App extends React.Component {
 
@@ -30,7 +40,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <Provider store={this.store}>
+          <MuiThemeProvider theme={theme}>
             <MainView />
+          </MuiThemeProvider>
         </Provider>
       </div>
     )

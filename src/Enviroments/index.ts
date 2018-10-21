@@ -1,14 +1,12 @@
-import { environment as devEnvironment} from './developerEnvironment'
-import { environment as prodEnvironment} from './productionEnvironment'
+import { DevEnvironment, IUrlsEnv, ProdEnvironment} from './environments'
 
-export interface IEnvironment {
-  urls: { baseUrl: string },
-}
+const devEnvironmet = new DevEnvironment()
+const prodEnvironmet = new ProdEnvironment()
 
-export function getEnviroment (): IEnvironment {
-  if (process.env.REACT_APP_MODE === 'DEV') {
-    return devEnvironment
-  } else {
-    return prodEnvironment
-  }
+export { IUrlsEnv }
+
+export function getUrlsEnviroment (): IUrlsEnv {
+  return process.env.REACT_APP_MODE === 'DEV'
+    ? devEnvironmet.getUrls()
+    : prodEnvironmet.getUrls()
 }

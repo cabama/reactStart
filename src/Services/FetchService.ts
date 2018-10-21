@@ -1,4 +1,4 @@
-import { getEnviroment } from '../Enviroments'
+import { getUrlsEnviroment } from '../Enviroments'
 import { LoginService } from './LoginService'
 
 export class Fetch {
@@ -6,7 +6,7 @@ export class Fetch {
   public baseUrl: string
 
   constructor () {
-    this.baseUrl = getEnviroment().urls.baseUrl
+    this.baseUrl = getUrlsEnviroment().baseUrl
   }
 
   public fetch (pathUrl: string, init?: RequestInit, baseUrl?: string): Promise<Response> {

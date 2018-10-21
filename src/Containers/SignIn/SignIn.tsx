@@ -100,7 +100,6 @@ export class SignIn extends React.Component<IProps, any> {
         <Card className={CardStyle}>
           <CardHeader title="Sign In"/>
           <CardContent>
-            {JSON.stringify(this.state.validationErrors)}
             <Grid
               container={true}
               direction="column"
