@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Provider } from 'react-redux'
-import { applyMiddleware, createStore, Store } from 'redux'
-import thunk from 'redux-thunk'
+import { createStore, Store } from 'redux'
 
 import './App.css'
 // import { LeftMenuDesktop } from './Components/LeftMenu/LeftMenuDesktop'
@@ -14,7 +13,17 @@ class App extends React.Component {
 
   constructor (props: any) {
     super(props)
-    this.store = createStore(MyStore, {}, applyMiddleware(thunk)) as Store<any>
+
+    const reduxDevTools = process.env.REACT_APP_MODE === 'DEV'
+      ? (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+      : undefined
+
+    this.store = createStore(
+      MyStore,
+      {},
+      reduxDevTools,
+    ) as Store<any>
+
   }
 
   public render () {

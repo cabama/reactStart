@@ -10,7 +10,9 @@ import {
 } from '@material-ui/core'
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
 import { object, ObjectSchema, string, ValidationError } from 'yup'
+import { UserTypes } from '../../Redux/Actions/UserActions'
 import { IMyStore } from '../../Redux/Store/Store'
 import { Fetch } from '../../Services/FetchService'
 import { baseUrl } from '../../shared/urls'
@@ -20,6 +22,7 @@ import { CardStyle } from './ProfileStyle'
 type IProps = {
   history: { push: (url: string) => void },
 } & ReturnType<typeof mapStateToProps>
+  & ReturnType<typeof mapDispatchToProps>
 
 interface IFormFields {
   email: string
@@ -143,12 +146,12 @@ export class ProfileView extends React.Component<IProps, any> {
   }
 
   private fetchPutProfile () {
-    debugger
     const formData: FormData = new FormData()
     formData.append('name', this.state.name)
     formData.append('surname', this.state.surname)
     new Fetch().fetch('users/me', {method: 'PUT', body: formData})
-      .then(response => console.log(response))
+      .then(response => response.json())
+      .then(value => this.props.dispatchers.updateProfile(value))
       .catch(error => console.log(error))
   }
 }
@@ -161,4 +164,18 @@ const mapStateToProps = (myState: IMyStore) => {
   }
 }
 
-export const Profile = connect(mapStateToProps)(ProfileView)
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    dispatchers: {
+      updateProfile: (user: any) =>
+        dispatch({
+          type: UserTypes.updated,
+          action: {
+            user,
+          },
+        }),
+    },
+  }
+}
+
+export const Profile = connect(mapStateToProps, mapDispatchToProps)(ProfileView)

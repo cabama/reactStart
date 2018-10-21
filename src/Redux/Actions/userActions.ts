@@ -4,6 +4,7 @@ export enum UserTypes  {
   loginEmail = 'LOGIN_EMAIL',
   loginSocial = 'LOGIN_SOCIAL_ACOUNT',
   logged = 'LOGGED',
+  updated = 'UPDATED',
   logout = 'LOGOUT_USER',
 }
 

@@ -9,7 +9,7 @@ export class Fetch {
     this.baseUrl = getEnviroment().urls.baseUrl
   }
 
-  public async fetch (pathUrl: string, init?: RequestInit, baseUrl?: string): Promise<Response> {
+  public fetch (pathUrl: string, init?: RequestInit, baseUrl?: string): Promise<Response> {
     const token = LoginService.getToken()
     if (token) {
       if (init) {
@@ -20,7 +20,6 @@ export class Fetch {
     }
     const base = baseUrl || this.baseUrl
     const url = base + '/' + pathUrl
-    debugger
     return fetch (url, init)
   }
 
