@@ -43,12 +43,12 @@ const styles = (theme: any) => ({
 
 class DrawerMenuResposive extends React.Component<any, any> {
 
-  constructor(props: any, state: any) {
+  constructor (props: any, state: any) {
     super(props)
     this.state = { mobileOpen: true}
   }
 
-  public render() {
+  public render () {
     const { classes, theme } = this.props
     return (
       <Drawer

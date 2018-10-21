@@ -12,12 +12,12 @@ class App extends React.Component {
 
   private store: any
 
-  constructor(props: any) {
+  constructor (props: any) {
     super(props)
     this.store = createStore(MyStore, {}, applyMiddleware(thunk)) as Store<any>
   }
 
-  public render() {
+  public render () {
     return (
       <div className="App">
         <Provider store={this.store}>

@@ -31,7 +31,7 @@ interface IState {
 }
 
 export class LoginPage extends React.Component<IProps, IState> {
-  public constructor(props: IProps, state: IState) {
+  public constructor (props: IProps, state: IState) {
     super(props, state)
     this.state = {
       email: '',
@@ -45,7 +45,7 @@ export class LoginPage extends React.Component<IProps, IState> {
     this.props.dispatch.loginWithEmail(this.state.email, this.state.password)
   }
 
-  public render() {
+  public render () {
     const formValues = { email: this.state.email, password: this.state.password }
     const validationErrors = yupValidateForm(formSchema, formValues)
     const isValidForm = formSchema.isValidSync(formValues)

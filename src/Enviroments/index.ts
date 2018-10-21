@@ -5,7 +5,7 @@ export interface IEnvironment {
   urls: { baseUrl: string },
 }
 
-export function getEnviroment(): IEnvironment {
+export function getEnviroment (): IEnvironment {
   if (process.env.NODE_ENV === 'DEV') {
     return DEV_EVIRONMENT
   } else {

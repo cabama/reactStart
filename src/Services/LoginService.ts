@@ -11,19 +11,19 @@ export interface IUserResponse {
 
 export class LoginService {
 
-  public static getToken() {
+  public static getToken () {
     return localStorage.getItem(TOKEN_KEY) || null
   }
 
-  public static removeToken() {
+  public static removeToken () {
     return localStorage.removeItem(TOKEN_KEY)
   }
 
-  public static setToken(token: string) {
+  public static setToken (token: string) {
     localStorage.setItem(TOKEN_KEY, token)
   }
 
-  public static async loginWithToken(): Promise<IUserResponse | null> {
+  public static async loginWithToken (): Promise<IUserResponse | null> {
     const token = LoginService.getToken()
     if (!token) return null
     const responseJson = await LoginBridge.loginWithToken(token)
@@ -33,7 +33,7 @@ export class LoginService {
     else return null
   }
 
-  public static async loginWithEmail(email: string, password: string): Promise <IUserResponse | null> {
+  public static async loginWithEmail (email: string, password: string): Promise <IUserResponse | null> {
     const emailRequest = await LoginBridge.loginWithEmail(email, password)
     const emailResponse = await emailRequest.json()
     if (emailResponse && emailResponse.token) {
@@ -46,14 +46,14 @@ export class LoginService {
     }
   }
 
-  public static async singUp(email: string, name: string, password: string): Promise<any> {
+  public static async singUp (email: string, name: string, password: string): Promise<any> {
     return LoginBridge.singUp(email, name, password)
   }
 }
 
 class LoginBridge {
 
-  public static loginWithToken(token: string): Promise<any> {
+  public static loginWithToken (token: string): Promise<any> {
     const endPoint = baseApi + '/users/me'
     const requestInit: RequestInit = {
       method: 'GET',
@@ -64,7 +64,7 @@ class LoginBridge {
     return fetch(endPoint, requestInit)
   }
 
-  public static singUp(email: string, name: string, password: string): Promise<any> {
+  public static singUp (email: string, name: string, password: string): Promise<any> {
     const endPoint = baseApi + '/login/signup'
     const requestInit: RequestInit = {
       method: 'POST',
@@ -75,7 +75,7 @@ class LoginBridge {
     return fetch(endPoint, requestInit)
   }
 
-  public static loginWithEmail(email: string, password: string) {
+  public static loginWithEmail (email: string, password: string) {
     const endPoint = baseApi + '/login/email'
     const requestInit: RequestInit = {
       method: 'POST',

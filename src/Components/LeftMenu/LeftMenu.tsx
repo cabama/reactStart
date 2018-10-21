@@ -22,7 +22,7 @@ type DrawableProps = IStateToProps & IDispatchToProps & RouteComponentProps
 
 class Drawablemenu extends React.Component<DrawableProps> {
 
-  constructor(props: DrawableProps, state: any) {
+  constructor (props: DrawableProps, state: any) {
     super(props, state)
   }
 
@@ -32,7 +32,7 @@ class Drawablemenu extends React.Component<DrawableProps> {
     )
   }
 
-  public render() {
+  public render () {
     return (
       <MediaQuery maxDeviceWidth={1224}>
         {(matches) => this.getDrawableMenu(matches)}
@@ -47,7 +47,7 @@ class Drawablemenu extends React.Component<DrawableProps> {
     else return <LeftMenuDesktop visible={visible} close={close} items={this.ListItems(close)}/>
   }
 
-  private makeElementList(element: { title: string, icon: React.ComponentType, path: string, close: () => void }) {
+  private makeElementList (element: { title: string, icon: React.ComponentType, path: string, close: () => void }) {
     const {title, icon, path, close } = element
     const onClose = () => {
       this.props.history.push(path)

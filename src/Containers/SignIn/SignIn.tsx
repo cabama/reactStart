@@ -58,7 +58,7 @@ export class SignIn extends React.Component<IProps, any> {
       .required('Confirm Password is required'),
   })
 
-  public constructor(props: IProps, state: IState) {
+  public constructor (props: IProps, state: IState) {
     super(props, state)
     this.state = {
       email: '',
@@ -79,7 +79,7 @@ export class SignIn extends React.Component<IProps, any> {
       .catch((error) => console.error('Error al registrar usuario: ' + error))
   }
 
-  public async handleChanges(changes: { name: keyof IStateValidate, value: any}) {
+  public async handleChanges (changes: { name: keyof IStateValidate, value: any}) {
     const userToValidate = {
       email: this.state.email,
       name: this.state.name,
@@ -94,7 +94,7 @@ export class SignIn extends React.Component<IProps, any> {
     this.setState({[changes.name]: changes.value})
   }
 
-  public render() {
+  public render () {
     return (
       <div className={ContainerStyle}>
         <Card className={CardStyle}>

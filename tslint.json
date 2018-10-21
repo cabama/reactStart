@@ -6,6 +6,8 @@
   ],
   "jsRules": {},
   "rules": {
+    "space-before-function-paren": true,
+    "arrow-parens": false,
     // use single quotes, but enforce double quotes in JSX
     "quotemark": [
       true,

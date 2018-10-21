@@ -18,7 +18,7 @@ type IProps = {
 
 class AvatarComponent extends React.Component<IProps, IState> {
 
-  constructor(props: IProps, state: IState) {
+  constructor (props: IProps, state: IState) {
     super(props, state)
     this.state = { anchorElement: null }
   }
@@ -28,7 +28,7 @@ class AvatarComponent extends React.Component<IProps, IState> {
     console.log('hitsoty', this.props.history)
   }
 
-  public render() {
+  public render () {
     const open = Boolean(this.state.anchorElement) || false
     return (
       <div>
@@ -50,7 +50,7 @@ class AvatarComponent extends React.Component<IProps, IState> {
     )
   }
 
-  private showUser(): string {
+  private showUser (): string {
     const user = this.props.state.user
     if (!user.login) return '-'
     else if (user.name) return user.name.charAt(0).toUpperCase()

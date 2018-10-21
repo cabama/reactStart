@@ -12,6 +12,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { object, ObjectSchema, string, ValidationError } from 'yup'
 import { IMyStore } from '../../Redux/Store/Store'
+import { Fetch } from '../../Services/FetchService'
 import { baseUrl } from '../../shared/urls'
 import View from '../View/View'
 import { CardStyle } from './ProfileStyle'
@@ -62,7 +63,7 @@ export class ProfileView extends React.Component<IProps, any> {
     surname: string().required('Surname is requerided.'),
   })
 
-  public constructor(props: IProps, state: IState) {
+  public constructor (props: IProps, state: IState) {
     super(props, state)
     this.state = {
       email: this.props.state.user.email || '',
@@ -72,7 +73,7 @@ export class ProfileView extends React.Component<IProps, any> {
     }
   }
 
-  public async handleChanges(changes: { name: keyof IStateValidate, value: any }) {
+  public async handleChanges (changes: { name: keyof IStateValidate, value: any }) {
     const userToValidate = {
       email: this.state.email,
       name: this.state.name,
@@ -85,7 +86,7 @@ export class ProfileView extends React.Component<IProps, any> {
     this.setState({ [changes.name]: changes.value })
   }
 
-  public render() {
+  public render () {
     const avatarURL = baseUrl + '/public/avatar/unkown.png'
     return (
       <View MenuBar={true} SideMenu={true}>
@@ -106,7 +107,7 @@ export class ProfileView extends React.Component<IProps, any> {
           </CardContent>
 
           <CardActions style={{ justifyContent: 'space-around' }}>
-            <Button color="primary" onClick={() => null}>Update Profile</Button>
+              <Button color="primary" onClick={this.fetchPutProfile}>Update Profile</Button>
           </CardActions>
         </Card>
       </Grid>
@@ -114,7 +115,7 @@ export class ProfileView extends React.Component<IProps, any> {
     )
   }
 
-  private renderForm() {
+  private renderForm () {
     return (
       <Grid item={true} xs={12} container={true} direction="row" justify="center" alignItems="center">
         {this.setTextField({name: 'name', type: 'text'})}
@@ -124,7 +125,7 @@ export class ProfileView extends React.Component<IProps, any> {
     )
   }
 
-  private setTextField(setup: ISetTextField) {
+  private setTextField (setup: ISetTextField) {
     return (
       <Grid item={true} xs={12} md={8} container={true} direction="row" justify="center" alignItems="center">
         <TextField
@@ -139,6 +140,15 @@ export class ProfileView extends React.Component<IProps, any> {
         />
       </Grid>
     )
+  }
+
+  private fetchPutProfile () {
+    const formData: FormData = new FormData()
+    formData.append('name', this.state.name)
+    formData.append('surname', this.state.surname)
+    new Fetch().fetch('/api/users/me', {body: formData})
+      .then(response => console.log(response))
+      .catch(error => console.log(error))
   }
 }
 

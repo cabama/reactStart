@@ -33,15 +33,15 @@ type MainViewComponentProps = IStateToProps & IDispatchProps
 
 export class MainViewComponent extends React.Component<MainViewComponentProps> {
 
-  constructor(props: MainViewComponentProps, context: any) {
+  constructor (props: MainViewComponentProps, context: any) {
     super(props, context)
   }
 
-  public componentDidMount() {
+  public componentDidMount () {
     this.props.dispatch.loginWithToken()
   }
 
-  public render() {
+  public render () {
     const isAuth = this.props.state.user.login
     return (
       <Grid item={true} xs={12} sm={12} md={12}>

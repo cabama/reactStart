@@ -5,11 +5,11 @@ export class Fetch {
 
   public baseUrl: string
 
-  constructor() {
+  constructor () {
     this.baseUrl = getEnviroment().urls.baseUrl
   }
 
-  public async fetch(url: string, init?: RequestInit | undefined): Promise<Response> {
+  public async fetch (url: string, init?: RequestInit | undefined): Promise<Response> {
     const token = LoginService.getToken()
     if (token) {
       if (init) {

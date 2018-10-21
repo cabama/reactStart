@@ -24,11 +24,11 @@ interface IProps {
 
 class View extends React.Component <IProps> {
 
-  constructor(props: IProps) {
+  constructor (props: IProps) {
     super(props)
   }
 
-  public render() {
+  public render () {
     return (
       <div className="View" style={{height: '100%'}}>
           {this.getMenuBar()}
@@ -42,13 +42,13 @@ class View extends React.Component <IProps> {
     )
   }
 
-  private calcChildrenHeight() {
+  private calcChildrenHeight () {
     return this.props.MenuBar
       ? 'calc(100% - 56px)'
       : '100%'
   }
 
-  private getMenuBar() {
+  private getMenuBar () {
     return this.props.MenuBar
       ? <MenuBar/>
       : null

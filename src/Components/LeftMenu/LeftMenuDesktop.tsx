@@ -28,7 +28,7 @@ const styles = (theme: any) => ({
   toolbar: theme.mixins.toolbar,
 })
 
-export function DrawerMenu(props: any) {
+export function DrawerMenu (props: any) {
 
   const { classes } = props
 

@@ -23,7 +23,7 @@ const styles = {
   },
 }
 
-export function MenuBarView(props: any) {
+export function MenuBarView (props: any) {
   return (
     <div >
       <AppBar position="static">
