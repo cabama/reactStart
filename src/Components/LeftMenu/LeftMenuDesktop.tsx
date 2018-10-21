@@ -6,7 +6,6 @@ import * as React from 'react'
 const styles = (theme: any) => ({
   root: {
     flexGrow: 1,
-    height: 430,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -18,6 +17,7 @@ const styles = (theme: any) => ({
   drawerPaper: {
     position: 'relative',
     width: 240,
+    height: 'calc(100vh - 65px)',
   },
   content: {
     flexGrow: 1,

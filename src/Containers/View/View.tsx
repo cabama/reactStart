@@ -32,7 +32,7 @@ class View extends React.Component <IProps> {
     return (
       <div className="View" style={{height: '100%'}}>
           {this.getMenuBar()}
-        <div style={{...AppStyle, height: this.calcChildrenHeight()}}>
+        <div style={{ ...AppStyle, height: 'calc(100% - 56px)'}}>
           <LeftMenu/>
           <Grid container={true} justify="center" style={MainStyle}>
             {this.props.children}
@@ -42,11 +42,11 @@ class View extends React.Component <IProps> {
     )
   }
 
-  private calcChildrenHeight () {
-    return this.props.MenuBar
-      ? 'calc(100% - 56px)'
-      : '100%'
-  }
+  // private calcChildrenHeight () {
+  //   return this.props.MenuBar
+  //     ? 'calc(100% - 56px)'
+  //     : '100%'
+  // }
 
   private getMenuBar () {
     return this.props.MenuBar
