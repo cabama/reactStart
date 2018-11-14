@@ -12,10 +12,10 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { object, ObjectSchema, string, ValidationError } from 'yup'
+import { getUrlsEnviroment } from '../../Enviroments'
 import { UserTypes } from '../../Redux/Actions/UserActions'
 import { IMyStore } from '../../Redux/Store/Store'
 import { Fetch } from '../../Services/FetchService'
-import { baseUrl } from '../../shared/urls'
 import View from '../View/View'
 import { CardStyle } from './ProfileStyle'
 
@@ -61,6 +61,7 @@ const getYupErrors = (error: ValidationError) => {
 export class ProfileView extends React.Component<IProps, any> {
 
   public inputRef: any = React.createRef()
+  public urls = getUrlsEnviroment()
 
   public formSchema: ObjectSchema<{ [k in keyof IFormFields]: any }> = object({
     email: string().required('Email is Requerided').email('Is not email valid.'),
@@ -92,7 +93,7 @@ export class ProfileView extends React.Component<IProps, any> {
   }
 
   public render () {
-    const avatarURL = baseUrl + '/public/avatar/' + this.props.state.user.avatar || 'unkown.png'
+    const avatarURL = this.urls.baseUrl + '/public/avatar/' + (this.props.state.user.avatar || 'unkown.png')
     return (
       <View MenuBar={true} SideMenu={true}>
         <Grid container={true} xs={11} justify="center" alignItems="center">
@@ -157,7 +158,10 @@ export class ProfileView extends React.Component<IProps, any> {
     const img = e.target.files![0]
     const formData: FormData = new FormData()
     formData.append('avatar', img)
-    new Fetch().fetch('users/avatar', { method: 'POST', body: formData })
+    new Fetch().fetch({
+      path: 'users/avatar',
+      init: { method: 'POST', body: formData },
+    })
       .then(response => response.json())
       .then(value => this.props.dispatchers.updateProfile(value))
       .catch(error => console.error(error))
@@ -167,7 +171,10 @@ export class ProfileView extends React.Component<IProps, any> {
     const formData: FormData = new FormData()
     formData.append('name', this.state.name)
     formData.append('surname', this.state.surname)
-    new Fetch().fetch('users/me', {method: 'PUT', body: formData})
+    new Fetch().fetch({
+      path: 'users/me',
+      init: {method: 'PUT', body: formData},
+    })
       .then(response => response.json())
       .then(value => this.props.dispatchers.updateProfile(value))
       .catch(error => console.error(error))

@@ -6,11 +6,11 @@ export interface IUrlsEnv {
 }
 
 export abstract class Environment {
-  protected baseUrl: string
-  protected baseApi = this.baseUrl + '/api'
-  protected baseUsers = this.baseApi + '/users'
-  protected basePublic = this.baseUrl + '/public'
-  protected baseAvatar = this.baseUsers + '/avatar'
+  public baseUrl: string
+  public get baseApi () { return this.baseUrl + '/api' }
+  public get baseUsers () { return this.baseApi + '/users'}
+  public get basePublic () { return this.baseUrl + '/public'}
+  public get baseAvatar () { return this.baseUsers + '/avatar'}
 
   constructor (baseUrl: string) {
     this.baseUrl = baseUrl
@@ -28,12 +28,12 @@ export abstract class Environment {
 
 export class DevEnvironment extends Environment {
   constructor () {
-    super('//localhost:2525/api')
+    super('//localhost:2525')
   }
 }
 
 export class ProdEnvironment extends Environment {
   constructor () {
-    super('//192.168.1.10:2525/api')
+    super('//192.168.1.10:2525')
   }
 }

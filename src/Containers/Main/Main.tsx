@@ -10,7 +10,7 @@ class MainPage extends React.Component {
   public componentDidMount () {
     const fetch = new Fetch()
 
-    fetch.fetch('http://localhost:2525/api/users/all')
+    fetch.fetch({url: 'http://localhost:2525/api/users/all'})
       .then((response) => {
         (window as any).carlos = response
         console.log(response.json())

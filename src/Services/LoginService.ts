@@ -1,4 +1,5 @@
-import { baseApi } from './../shared/urls'
+import { getUrlsEnviroment } from '../Enviroments'
+import { Fetch } from './FetchService'
 
 const TOKEN_KEY = 'app_token'
 
@@ -53,36 +54,49 @@ export class LoginService {
 
 class LoginBridge {
 
+  public static urls = getUrlsEnviroment()
+
   public static loginWithToken (token: string): Promise<any> {
-    const endPoint = baseApi + '/users/me'
+    debugger
     const requestInit: RequestInit = {
       method: 'GET',
-      headers: { Authorization: `JWT ${token}`},
       mode: 'cors',
       cache: 'default',
     }
-    return fetch(endPoint, requestInit)
+    return new Fetch().fetch({
+      path: 'users/me',
+      init: requestInit,
+    })
   }
 
   public static singUp (email: string, name: string, password: string): Promise<any> {
-    const endPoint = baseApi + '/login/signup'
     const requestInit: RequestInit = {
       method: 'POST',
       headers: { 'Content-type': 'application/x-www-form-urlencoded' },
       body: `email=${email}&password=${password}`,
       cache: 'default',
     }
-    return fetch(endPoint, requestInit)
+    return new Fetch().fetch({
+      path: 'login/signup',
+      init: requestInit,
+    })
   }
 
   public static loginWithEmail (email: string, password: string) {
-    const endPoint = baseApi + '/login/email'
+    const body = new FormData()
+    body.append('email', email)
+    body.append('password', password)
+
     const requestInit: RequestInit = {
       method: 'POST',
       headers: { 'Content-type': 'application/x-www-form-urlencoded' },
-      body: `email=${email}&password=${password}`,
+      body,
       cache: 'default',
     }
-    return fetch(endPoint, requestInit)
+    return new Fetch().fetch({
+      path: 'login/email',
+      init: requestInit,
+    })
   }
+
 }

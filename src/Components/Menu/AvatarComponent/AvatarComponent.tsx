@@ -37,15 +37,14 @@ class AvatarComponent extends React.Component<IProps, IState> {
 
   public render () {
     const open = Boolean(this.state.anchorElement) || false
+    debugger
     return (
       <div>
         <Avatar
-          src={this.urls.baseAvatar + '/' + this.props.state.user.avatar}
+          src={this.urls.baseUrl + '/public/avatar/' + this.props.state.user.avatar}
           onClick={this.handleOpenMenu}
           style={this.avatarStyle}
-        >
-          {this.showUser()}
-        </Avatar>
+        />
         <Menu
           id="menu-appbar"
           anchorEl={this.state.anchorElement || undefined}
@@ -63,13 +62,13 @@ class AvatarComponent extends React.Component<IProps, IState> {
     )
   }
 
-  private showUser (): string {
-    const user = this.props.state.user
-    if (!user.login) return '-'
-    else if (user.name) return user.name.charAt(0).toUpperCase()
-    else if (user.email) return user.email.charAt(0).toUpperCase()
-    else return '-'
-  }
+  // private showUser (): string {
+  //   const user = this.props.state.user
+  //   if (!user.login) return '-'
+  //   else if (user.name) return user.name.charAt(0).toUpperCase()
+  //   else if (user.email) return user.email.charAt(0).toUpperCase()
+  //   else return '-'
+  // }
 
   private handleOpenMenu = (event: React.MouseEvent<HTMLDivElement>) => {
     this.setState({ anchorElement: event.currentTarget })

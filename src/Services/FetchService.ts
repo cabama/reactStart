@@ -1,26 +1,30 @@
 import { getUrlsEnviroment } from '../Enviroments'
 import { LoginService } from './LoginService'
 
+interface IFetchParams {
+  path?: string,
+  init?: RequestInit,
+  baseUrl?: string,
+  url?: string,
+}
+
 export class Fetch {
 
   public baseUrl: string
 
   constructor () {
-    this.baseUrl = getUrlsEnviroment().baseUrl
+    this.baseUrl = getUrlsEnviroment().baseApi
   }
 
-  public fetch (pathUrl: string, init?: RequestInit, baseUrl?: string): Promise<Response> {
+  public fetch (fetchParams: IFetchParams): Promise<Response> {
+    const {path, init, baseUrl} = fetchParams
     const token = LoginService.getToken()
-    if (token) {
-      if (init) {
-        init.headers = { ...init.headers, ...{ Authorization: 'JWT ' + token}}
-      } else {
-        init = { headers: { Authentication: token }}
-      }
-    }
+    const initRequest = { ...init, ...{ headers: { ...{ Authorization: 'JWT ' + token}}}}
+    debugger
+    if (fetchParams.url) return fetch(fetchParams.url, initRequest)
     const base = baseUrl || this.baseUrl
-    const url = base + '/' + pathUrl
-    return fetch (url, init)
+    const url = base + '/' + path
+    return fetch(url, initRequest)
   }
 
 }
